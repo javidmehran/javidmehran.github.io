@@ -1,0 +1,40 @@
+<div class="start-menu" role="menu" aria-label="Start menu">
+  <header class="user-bar">
+    <img [src]="profile.avatarUrl" [alt]="profile.name" />
+    <div>
+      <strong>{{ profile.name }}</strong>
+      <span>{{ profile.title }}</span>
+    </div>
+  </header>
+
+  <div class="columns">
+    <div class="left">
+      @for (item of leftItems; track item.label) {
+        <button type="button" class="item" (click)="onLeftClick(item)">
+          <app-xp-icon [name]="item.icon" [size]="32" />
+          <span>
+            <strong>{{ item.label }}</strong>
+            @if (item.subtitle) {
+              <small>{{ item.subtitle }}</small>
+            }
+          </span>
+        </button>
+      }
+    </div>
+    <div class="right">
+      @for (item of rightItems; track item.label) {
+        <button type="button" class="item compact" (click)="onRightClick(item)">
+          <app-xp-icon [name]="item.icon" [size]="24" />
+          <span>{{ item.label }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <footer>
+    <button type="button" class="power" (click)="shutdown.emit()">
+      <span class="power-icon">⏻</span>
+      Turn Off Computer
+    </button>
+  </footer>
+</div>

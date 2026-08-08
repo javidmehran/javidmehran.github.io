@@ -1,0 +1,30 @@
+<div
+  class="xp-window"
+  [class.focused]="focused"
+  [class.maximized]="win.maximized"
+  [class.minimized]="win.minimized"
+  [style.left.px]="win.maximized ? 0 : win.x"
+  [style.top.px]="win.maximized ? 0 : win.y"
+  [style.width.px]="win.maximized ? null : win.width"
+  [style.height.px]="win.maximized ? null : win.height"
+  [style.zIndex]="win.zIndex"
+>
+  <header
+    class="title-bar"
+    (pointerdown)="onTitleDown($event)"
+    (pointermove)="onTitleMove($event)"
+    (pointerup)="onTitleUp()"
+    (dblclick)="maximize.emit()"
+  >
+    <app-xp-icon [name]="win.icon" [size]="16" />
+    <span class="title">{{ win.title }}</span>
+    <div class="win-controls">
+      <button type="button" class="ctrl min" (click)="minimize.emit()" aria-label="Minimize">_</button>
+      <button type="button" class="ctrl max" (click)="maximize.emit()" aria-label="Maximize">□</button>
+      <button type="button" class="ctrl close" (click)="close.emit()" aria-label="Close">✕</button>
+    </div>
+  </header>
+  <div class="window-body">
+    <ng-content />
+  </div>
+</div>
