@@ -1,9 +1,14 @@
 @if ((desktop.phase$ | async) === 'boot') {
-  <div class="boot-screen" aria-live="polite">
+  <div class="boot-screen" [class.phone-boot]="isPhone" aria-live="polite">
     <div class="boot-logo">
       <app-xp-icon name="start" [size]="72" />
-      <h1>Microsoft Windows<span>XP</span></h1>
-      <p>Portfolio Edition</p>
+      @if (isPhone) {
+        <h1>Windows Phone</h1>
+        <p>Portfolio Edition</p>
+      } @else {
+        <h1>Microsoft Windows<span>XP</span></h1>
+        <p>Portfolio Edition</p>
+      }
     </div>
     <div class="boot-bar"><i></i></div>
     <p class="boot-copy">Copyright © Mehran Javid</p>
@@ -19,6 +24,8 @@
       </div>
     </div>
   </div>
+} @else if (isPhone) {
+  <app-phone-shell (shutdown)="desktop.shutdown()" />
 } @else {
   <div class="desktop" (mousedown)="onDesktopClick($event)">
     <div class="wallpaper" aria-hidden="true"></div>

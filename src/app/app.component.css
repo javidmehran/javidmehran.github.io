@@ -77,6 +77,11 @@
   animation: fade-up 700ms ease-out;
 }
 
+.phone-boot .boot-logo h1 {
+  font: 200 34px "Segoe UI", "Segoe WP", Tahoma, sans-serif;
+  letter-spacing: 0;
+}
+
 .boot-logo h1 {
   margin: 18px 0 4px;
   font: 400 28px "Franklin Gothic Medium", Tahoma, sans-serif;

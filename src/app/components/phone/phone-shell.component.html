@@ -1,0 +1,88 @@
+<div class="phone">
+  <header class="status-bar">
+    <span class="carrier">PORTFOLIO</span>
+    <span class="status-right">
+      <span aria-hidden="true">▮▮▮</span>
+      <span aria-hidden="true">wlan</span>
+      <time>{{ now | date: 'h:mm a' }}</time>
+    </span>
+  </header>
+
+  @if (!activeApp) {
+    <section class="start" aria-label="Windows Phone start screen">
+      <div class="start-heading">
+        <button type="button" class="avatar-btn" (click)="openTile(tiles[0])">
+          <img [src]="profile.avatarUrl" [alt]="profile.name" />
+        </button>
+        <div>
+          <p class="eyebrow">windows phone</p>
+          <h1>{{ firstName }}</h1>
+        </div>
+      </div>
+
+      <div class="tiles">
+        @for (tile of tiles; track tile.title) {
+          <button
+            type="button"
+            class="tile"
+            [class.wide]="tile.size === 'wide'"
+            [class.medium]="tile.size === 'medium'"
+            [style.background]="tile.color"
+            (click)="openTile(tile)"
+          >
+            <span class="tile-icon">
+              <app-xp-icon [name]="tile.icon" [size]="tile.size === 'wide' ? 36 : 28" />
+            </span>
+            @if (tile.live) {
+              <span class="tile-live">{{ tile.live }}</span>
+            }
+            <span class="tile-title">{{ tile.title }}</span>
+            @if (tile.subtitle && tile.size === 'wide') {
+              <span class="tile-sub">{{ tile.subtitle }}</span>
+            }
+          </button>
+        }
+      </div>
+
+      <button type="button" class="power" (click)="shutdown.emit()">turn off</button>
+    </section>
+  } @else {
+    <section class="app-screen">
+      <header class="app-bar">
+        <button type="button" class="back" (click)="goHome()" aria-label="Back">←</button>
+        <h2>{{ titles[activeApp] }}</h2>
+      </header>
+      <div class="app-body">
+        @switch (activeApp) {
+          @case ('about') {
+            <app-about-app />
+          }
+          @case ('experience') {
+            <app-experience-app />
+          }
+          @case ('projects') {
+            <app-projects-app />
+          }
+          @case ('skills') {
+            <app-skills-app />
+          }
+          @case ('contact') {
+            <app-contact-app />
+          }
+          @case ('recycle') {
+            <app-recycle-app />
+          }
+          @case ('cmd') {
+            <app-cmd-app />
+          }
+          @case ('minesweeper') {
+            <app-minesweeper-app />
+          }
+          @case ('media') {
+            <app-media-app />
+          }
+        }
+      </div>
+    </section>
+  }
+</div>
